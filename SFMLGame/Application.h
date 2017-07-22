@@ -3,6 +3,8 @@
 #include <memory>
 #include <stack>
 
+#include "resmgr\TextureManager.h"
+
 class Application
 {
 public:
@@ -12,4 +14,5 @@ public:
 
 private:
 	int updateRate;
+	TextureManager texturemgr;
 };

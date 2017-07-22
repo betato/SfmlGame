@@ -1,6 +1,7 @@
 #include "Application.h"
 
 #include "Display.h"
+
 #include <iostream>
 
 Application::Application(int frameCap, int updateCap)
@@ -52,6 +53,7 @@ void Application::runLoop()
 
 			sf::RectangleShape rect;
 			rect.setSize(sf::Vector2f(500, 500));
+			rect.setTexture(&texturemgr.get(TextureName::Test));
 
 			Display::clear();		// Clear
 			Display::draw(rect);	// Draw
