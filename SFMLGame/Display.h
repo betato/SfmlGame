@@ -11,4 +11,5 @@ namespace Display
 	void display();
 
 	void checkEvents();
+	bool isOpen();
 }

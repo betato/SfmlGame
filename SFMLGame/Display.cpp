@@ -38,4 +38,9 @@ namespace Display
 			}
 		}
 	}
+
+	bool isOpen()
+	{
+		return window->isOpen();
+	}
 }

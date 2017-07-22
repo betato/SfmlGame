@@ -24,7 +24,7 @@ void Application::runLoop()
 	sf::Clock updateClock;
 	sf::Clock counterClock;
 
-	while (true)
+	while (Display::isOpen())
 	{
 		if (counterClock.getElapsedTime() >= sf::seconds(1)) {
 			fps = frameCount;
