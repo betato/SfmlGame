@@ -25,6 +25,10 @@ void Application::runLoop()
 	sf::Clock updateClock;
 	sf::Clock counterClock;
 
+	sf::Sound sound;
+	sound.setBuffer(resourceManager.getSound(SoundName::Test));
+	sound.play();
+
 	while (Display::isOpen())
 	{
 		if (counterClock.getElapsedTime() >= sf::seconds(1)) {
@@ -53,10 +57,16 @@ void Application::runLoop()
 
 			sf::RectangleShape rect;
 			rect.setSize(sf::Vector2f(500, 500));
-			rect.setTexture(&texturemgr.get(TextureName::Test));
+			rect.setTexture(&resourceManager.getTexture(TextureName::Test));
+
+			sf::Text text;
+			text.setFont(resourceManager.getFont(FontName::Test));
+			text.setString("TEXT");
+			
 
 			Display::clear();		// Clear
 			Display::draw(rect);	// Draw
+			Display::draw(text);
 			Display::display();		// Display
 		}
 

@@ -152,6 +152,7 @@
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="resmgr\FontManager.cpp" />
+    <ClCompile Include="resmgr\ResourceManager.cpp" />
     <ClCompile Include="resmgr\SoundManager.cpp" />
     <ClCompile Include="resmgr\TextureManager.cpp" />
   </ItemGroup>
@@ -160,6 +161,7 @@
     <ClInclude Include="Display.h" />
     <ClInclude Include="resmgr\BaseManager.h" />
     <ClInclude Include="resmgr\FontManager.h" />
+    <ClInclude Include="resmgr\ResourceManager.h" />
     <ClInclude Include="resmgr\SoundManager.h" />
     <ClInclude Include="resmgr\TextureManager.h" />
   </ItemGroup>
