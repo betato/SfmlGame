@@ -44,6 +44,7 @@ void Application::runLoop()
 			render = true;
 
 			// Update
+			Display::checkEvents();
 		}
 
 		if (render) {

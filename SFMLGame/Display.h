@@ -9,4 +9,6 @@ namespace Display
 	void clear();
 	void draw(const sf::Drawable& drawable);
 	void display();
+
+	void checkEvents();
 }
