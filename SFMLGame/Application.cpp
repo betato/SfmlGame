@@ -12,6 +12,35 @@ Application::Application(int frameCap, int updateCap)
 
 void Application::runLoop()
 {
+	world = new b2World(b2Vec2(0.0f, -10.0f));
+
+	// Ground box
+	b2BodyDef groundBodyDef;
+	groundBodyDef.position.Set(10.0f, -20.0f);
+
+	b2PolygonShape groundBox;
+	groundBox.SetAsBox(8.0f, 2.0f);
+
+	b2FixtureDef groundFixtureDef;
+	groundFixtureDef.shape = &groundBox;
+
+	groundBody = new Entity(world, &groundBodyDef, &groundFixtureDef);
+
+	// Physik box
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(10.0f, 0.0f);
+
+	b2PolygonShape dynamicBox;
+	dynamicBox.SetAsBox(1.0f, 1.0f);
+
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &dynamicBox;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.3f;
+
+	dynamicBody = new Entity(world, &bodyDef, &fixtureDef);
+
 	sf::Time delta = sf::Time::Zero;
 	sf::Time updateTime = sf::microseconds(1000000 / updateRate);
 	bool render = false;
@@ -25,9 +54,9 @@ void Application::runLoop()
 	sf::Clock updateClock;
 	sf::Clock counterClock;
 
-	sf::Sound sound;
-	sound.setBuffer(resourceManager.getSound(SoundName::Test));
-	sound.play();
+	//sf::Sound sound;
+	//sound.setBuffer(resourceManager.getSound(SoundName::Test));
+	//sound.play();
 
 	while (Display::isOpen())
 	{
@@ -49,12 +78,13 @@ void Application::runLoop()
 			render = true;
 
 			// Update
+			world->Step(timeStep, velocityIterations, positionIterations);
 			Display::checkEvents();
 		}
 
 		if (render) {
 			frameCount++;
-
+			/*
 			sf::RectangleShape rect;
 			rect.setSize(sf::Vector2f(500, 500));
 			rect.setTexture(&resourceManager.getTexture(TextureName::Test));
@@ -62,11 +92,15 @@ void Application::runLoop()
 			sf::Text text;
 			text.setFont(resourceManager.getFont(FontName::Test));
 			text.setString("TEXT");
-			
+			*/
 
 			Display::clear();		// Clear
-			Display::draw(rect);	// Draw
-			Display::draw(text);
+			//Display::draw(rect);	// Draw
+			//Display::draw(text);
+
+			Display::draw(*groundBody);
+			Display::draw(*dynamicBody);
+
 			Display::display();		// Display
 		}
 
