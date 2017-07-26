@@ -1,5 +1,11 @@
 #include "ResourceManager.h"
 
+const ResourceManager& ResourceManager::get()
+{
+	static ResourceManager manager;
+	return manager;
+}
+
 const sf::Texture& ResourceManager::getTexture(TextureName name) const
 {
 	return textures.get(name);

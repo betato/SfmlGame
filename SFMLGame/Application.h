@@ -16,7 +16,6 @@ public:
 
 private:
 	int updateRate;
-	ResourceManager resourceManager;
 
 	b2World* world;
 
