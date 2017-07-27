@@ -9,7 +9,6 @@ public:
 	Entity(b2World* world, b2BodyDef* bodyDef, b2FixtureDef* fixtureDef);
 
 	void setTexture(const sf::Texture* tex);
-	void Entity::updateTexCoords();
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

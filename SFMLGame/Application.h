@@ -2,7 +2,6 @@
 
 #include <memory>
 #include <stack>
-#include <Box2D\Box2D.h>
 
 #include "entity\Entity.h"
 #include "states\GameState.h"
@@ -22,13 +21,4 @@ private:
 	int updateRate;
 
 	std::stack<std::unique_ptr<State::GameState>> states;
-
-	b2World* world;
-
-	float32 timeStep = 1.0f / 60.0f;
-	int32 velocityIterations = 8;
-	int32 positionIterations = 3;
-
-	Entity* groundBody;
-	Entity* dynamicBody;
 };
