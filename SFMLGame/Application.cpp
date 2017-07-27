@@ -4,11 +4,14 @@
 
 #include "Display.h"
 #include "resmgr\ResourceManager.h"
+#include "states\RunningState.h"
 
 Application::Application(int frameCap, int updateCap)
 {
 	Display::init(frameCap, 1280, 720, "Window");
 	updateRate = updateCap;
+
+	pushState(std::make_unique<State::Running>(*this));
 }
 
 void Application::runLoop()
@@ -80,6 +83,8 @@ void Application::runLoop()
 			// Update
 			world->Step(timeStep, velocityIterations, positionIterations);
 			Display::checkEvents();
+			states.top()->input();	// Game input
+			states.top()->update();	// Update
 		}
 
 		if (render) {
@@ -87,6 +92,7 @@ void Application::runLoop()
 
 			Display::clear();		// Clear
 
+			states.top()->draw();	// Draw
 			Display::draw(*groundBody); // Draw
 			Display::draw(*dynamicBody);
 
@@ -95,4 +101,20 @@ void Application::runLoop()
 
 		delta += updateClock.restart();
 	}
+}
+
+void Application::pushState(std::unique_ptr<State::GameState> state)
+{
+	states.push(std::move(state));
+}
+
+void Application::popState()
+{
+	states.pop();
+}
+
+void Application::changeState(std::unique_ptr<State::GameState> state)
+{
+	popState();
+	pushState(std::move(state));
 }

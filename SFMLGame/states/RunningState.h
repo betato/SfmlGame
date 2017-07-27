@@ -9,6 +9,9 @@ namespace State
 	public:
 		Running(Application& application);
 
+		void input() override;
+		void update() override;
+		void draw() override;
 	private:
 
 	};
