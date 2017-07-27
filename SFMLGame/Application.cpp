@@ -1,8 +1,9 @@
 #include "Application.h"
 
-#include "Display.h"
-
 #include <iostream>
+
+#include "Display.h"
+#include "resmgr\ResourceManager.h"
 
 Application::Application(int frameCap, int updateCap)
 {
@@ -40,6 +41,9 @@ void Application::runLoop()
 	fixtureDef.friction = 0.3f;
 
 	dynamicBody = new Entity(world, &bodyDef, &fixtureDef);
+	
+	dynamicBody->setTexture(&ResourceManager::get().getTexture(TextureName::Test));
+	groundBody->setTexture(&ResourceManager::get().getTexture(TextureName::Test));
 
 	sf::Time delta = sf::Time::Zero;
 	sf::Time updateTime = sf::microseconds(1000000 / updateRate);

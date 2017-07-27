@@ -4,7 +4,6 @@
 #include <stack>
 #include <Box2D\Box2D.h>
 
-#include "resmgr\ResourceManager.h"
 #include "entity\Entity.h"
 
 class Application

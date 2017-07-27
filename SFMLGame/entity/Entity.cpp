@@ -29,6 +29,23 @@ Entity::Entity(b2World* world, b2BodyDef* bodyDef, b2FixtureDef* fixtureDef)
 	}
 }
 
+void Entity::setTexture(const sf::Texture* tex)
+{
+	texture = tex;
+	
+	// Test texture by updating coords
+	// Implement texture and model loader later
+	float left = 0.0f;
+	float right = left + texture->getSize().x;
+	float top = 0.0f;
+	float bottom = top + texture->getSize().y;
+	vertices[1].texCoords = sf::Vector2f(left, top);
+	vertices[0].texCoords = sf::Vector2f(left, bottom);
+	vertices[2].texCoords = sf::Vector2f(right, top);
+	vertices[3].texCoords = sf::Vector2f(right, bottom);
+
+}
+
 void Entity::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	// Get transforms
@@ -36,6 +53,10 @@ void Entity::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	// Apply transforms
 	states.transform.rotate(body->GetAngle() * radToDeg);
 	states.transform.translate(sf::Vector2f(scale * position.x, scale * -position.y));
+	// Apply texture if assigned
+	if (texture) {
+		states.texture = texture;
+	}
 	// Draw vertex array
 	target.draw(vertices, states);
 }

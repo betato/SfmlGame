@@ -1,5 +1,7 @@
 #include "ResourceManager.h"
 
+ResourceManager::ResourceManager() {}
+
 const ResourceManager& ResourceManager::get()
 {
 	static ResourceManager manager;
