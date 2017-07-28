@@ -39,7 +39,7 @@ namespace State
 		groundBody->setTexture(&ResourceManager::get().getTexture(TextureName::Test));
 	}
 
-	void Running::input()
+	void Running::input(const sf::Event& events)
 	{
 
 	}

@@ -12,7 +12,7 @@ namespace State
 	public:
 		Running(Application& application);
 
-		void input() override;
+		void input(const sf::Event& events) override;
 		void update() override;
 		void draw() override;
 	private:

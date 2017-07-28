@@ -27,11 +27,14 @@ namespace Display
 		window->display();
 	}
 	
-	void checkEvents()
+	void checkEvents(State::GameState& gameState)
 	{
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
+			// Sent game events
+			gameState.input(event);
+			// Check for close
 			if (event.type == sf::Event::Closed)
 			{
 				window->close();

@@ -49,9 +49,8 @@ void Application::runLoop()
 			render = true;
 
 			// Update
-			Display::checkEvents();	// Window input
-			states.top()->input();	// Game input
-			states.top()->update();	// Update
+			Display::checkEvents(*states.top());	// Window and game input
+			states.top()->update();					// Update
 		}
 
 		if (render) {
