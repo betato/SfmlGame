@@ -13,8 +13,10 @@ namespace State
 
 		std::vector<sf::Vector2f> verticies;
 		std::vector<sf::Vector2f> texCoords;
-
 		FileIO::readEntity(verticies, texCoords, "res/oct.txt");
+
+		b2PolygonShape shape;
+		FileIO::readPhysics(shape, "res/phys.txt");
 
 		// Ground box
 		b2BodyDef groundBodyDef;
@@ -24,7 +26,7 @@ namespace State
 		groundBox.SetAsBox(8.0f, 2.0f);
 
 		b2FixtureDef groundFixtureDef;
-		groundFixtureDef.shape = &groundBox;
+		groundFixtureDef.shape = &shape;
 
 		groundBody = new Entity(world, &groundBodyDef, &groundFixtureDef);
 
@@ -37,7 +39,7 @@ namespace State
 		dynamicBox.SetAsBox(1.0f, 1.0f);
 
 		b2FixtureDef fixtureDef;
-		fixtureDef.shape = &dynamicBox;
+		fixtureDef.shape = &shape;
 		fixtureDef.density = 1.0f;
 		fixtureDef.friction = 0.3f;
 

@@ -33,7 +33,6 @@ namespace FileIO
 		vector<string>::iterator it;
 		for (it = fileText.begin(); it < fileText.end(); it++)
 		{
-			// Test print line
 			char begin = it->at(0);
 			std::string str = it->erase(0, 1);
 			istringstream iss(str);
@@ -54,6 +53,31 @@ namespace FileIO
 				texCoords.push_back(sf::Vector2f(x, y));
 			}
 		}
+		return true;
+	}
+	bool readPhysics(b2PolygonShape& shape, string path)
+	{
+		std::vector<std::string> fileText;
+		if (!FileIO::readText(fileText, path))
+		{
+			return false;
+		}
+
+		vector<string>::iterator it;
+		std::vector<b2Vec2> verticies;
+		for (it = fileText.begin(); it < fileText.end(); it++)
+		{
+			istringstream iss(*it);
+
+			float x, y;
+			char sep;
+			iss >> x;
+			iss >> sep;
+			iss >> y;
+			verticies.push_back(b2Vec2(x, y));
+		}
+		// Set verticies to the vector array
+		shape.Set(&verticies[0], verticies.size());
 		return true;
 	}
 }
