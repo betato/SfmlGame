@@ -17,7 +17,7 @@ public:
 	b2Body* body;
 private:
 
-	const float scale = 4.0f;
+	const sf::Vector2f scale = sf::Vector2f(4, 4);
 
 	sf::VertexArray vertices;
 	const sf::Texture* texture;
