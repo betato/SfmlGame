@@ -33,7 +33,7 @@ namespace State
 		// Physik box
 		b2BodyDef bodyDef;
 		bodyDef.type = b2_dynamicBody;
-		bodyDef.position.Set(10.0f, 0.0f);
+		bodyDef.position.Set(13.0f, 0.0f);
 
 		b2PolygonShape dynamicBox;
 		dynamicBox.SetAsBox(1.0f, 1.0f);

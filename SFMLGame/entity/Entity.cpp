@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+#include <iostream>
+
 static const float radToDeg = 180.0f / 3.141592f;
 
 Entity::Entity(b2World* world, b2BodyDef* bodyDef, b2FixtureDef* fixtureDef)
@@ -40,14 +42,13 @@ void Entity::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	// Get transforms
 	b2Vec2 position = body->GetPosition();
 	// Apply transforms
-	states.transform.rotate(body->GetAngle() * radToDeg);
 	states.transform.translate(sf::Vector2f(position.x * scale.x, -position.y * scale.y));
+	states.transform.rotate(body->GetAngle() * radToDeg);
+	states.transform.scale(scale);
 	// Apply texture if assigned
 	if (texture) {
 		states.texture = texture;
 	}
-	// Scale
-	states.transform.scale(scale);
 	// Draw vertex array
 	target.draw(vertices, states);
 }
