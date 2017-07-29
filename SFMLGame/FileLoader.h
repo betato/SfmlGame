@@ -10,6 +10,6 @@ using namespace std;
 namespace FileIO
 {
 	bool readText(vector<string>& file, string path);
-	bool readEntity(vector<sf::Vector2f>& verticies, vector<sf::Vector2f>& texCoords, string path);
+	bool readEntity(sf::VertexArray& vertices, sf::Vector2u textureSize, string path);
 	bool readPhysics(b2PolygonShape& shape, string path);
 }

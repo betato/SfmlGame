@@ -22,7 +22,7 @@ namespace FileIO
 		return false;
 	}
 	
-	bool readEntity(vector<sf::Vector2f>& verticies, vector<sf::Vector2f>& texCoords, string path)
+	bool readEntity(sf::VertexArray& vertices, sf::Vector2u textureSize, string path)
 	{
 		std::vector<std::string> fileText;
 		if (!FileIO::readText(fileText, path))
@@ -30,6 +30,9 @@ namespace FileIO
 			return false;
 		}
 
+		vertices.clear();
+
+		int i = 0;
 		vector<string>::iterator it;
 		for (it = fileText.begin(); it < fileText.end(); it++)
 		{
@@ -45,16 +48,19 @@ namespace FileIO
 			if (begin == 'v')
 			{
 				// Vertex
-				verticies.push_back(sf::Vector2f(x, y));
+				vertices.append(sf::Vector2f(x, y));
 			}
 			else if (begin == 't')
 			{
 				// Texture
-				texCoords.push_back(sf::Vector2f(x, y));
+				vertices[i].texCoords = sf::Vector2f(x * textureSize.x, y * textureSize.y);
+				i++;
 			}
 		}
+
 		return true;
 	}
+
 	bool readPhysics(b2PolygonShape& shape, string path)
 	{
 		std::vector<std::string> fileText;
@@ -64,7 +70,7 @@ namespace FileIO
 		}
 
 		vector<string>::iterator it;
-		std::vector<b2Vec2> verticies;
+		std::vector<b2Vec2> vertices;
 		for (it = fileText.begin(); it < fileText.end(); it++)
 		{
 			istringstream iss(*it);
@@ -74,10 +80,10 @@ namespace FileIO
 			iss >> x;
 			iss >> sep;
 			iss >> y;
-			verticies.push_back(b2Vec2(x, y));
+			vertices.push_back(b2Vec2(x, y));
 		}
-		// Set verticies to the vector array
-		shape.Set(&verticies[0], verticies.size());
+		// Set vertices to the vector array
+		shape.Set(&vertices[0], vertices.size());
 		return true;
 	}
 }

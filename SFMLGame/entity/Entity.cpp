@@ -25,25 +25,15 @@ void Entity::setTexture(const sf::Texture* tex)
 	texture = tex;
 }
 
-void Entity::setShape(std::vector<sf::Vector2f> verts)
+void Entity::setShape(sf::VertexArray vertices)
 {
-	vertices.clear();
-	std::vector<sf::Vector2f>::iterator it;
-	for (it = verts.begin(); it < verts.end(); it++)
+	// Copy vertex array
+	Entity::vertices.clear();
+	int vertexCount = vertices.getVertexCount();
+	for (int i = 0; i < vertexCount; i++)
 	{
-		vertices.append(*it);
+		Entity::vertices.append(vertices[i]);
 	}
-}
-
-void Entity::setTextureCoords(std::vector<sf::Vector2f> texCoords)
-{
-	int i = 0;
-	std::vector<sf::Vector2f>::iterator it;
-	for (it = texCoords.begin(); it < texCoords.end(); it++)
-	{
-		vertices[i].texCoords = sf::Vector2f(it->x * texture->getSize().x, it->y * texture->getSize().y);
-		i++;
- 	}
 }
 
 void Entity::draw(sf::RenderTarget & target, sf::RenderStates states) const

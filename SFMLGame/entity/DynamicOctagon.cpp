@@ -29,11 +29,11 @@ DynamicOctagon::DynamicOctagon(b2World * world) : Entity(world)
 	dynamicBox.SetAsBox(1.0f, 1.0f);
 	
 	// Set graphics
-	std::vector<sf::Vector2f> verticies;
-	std::vector<sf::Vector2f> texCoords;
-	FileIO::readEntity(verticies, texCoords, "res/oct.txt");
+	const sf::Texture* texture = &ResourceManager::get().getTexture(TextureName::Test);
 
-	setTexture(&ResourceManager::get().getTexture(TextureName::Test));
-	setShape(verticies);
-	setTextureCoords(texCoords);
+	sf::VertexArray vertices;
+	FileIO::readEntity(vertices, texture->getSize(), "res/oct.txt");
+
+	setTexture(texture);
+	setShape(vertices);
 }

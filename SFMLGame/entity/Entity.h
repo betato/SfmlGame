@@ -12,8 +12,7 @@ public:
 	void addFixture(b2FixtureDef* fixtureDef);
 
 	void setTexture(const sf::Texture* tex);
-	void setShape(std::vector<sf::Vector2f> verts);
-	void setTextureCoords(std::vector<sf::Vector2f> texCoords);
+	void setShape(sf::VertexArray verts);
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
