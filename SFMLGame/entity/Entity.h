@@ -6,7 +6,10 @@
 class Entity : public sf::Drawable
 {
 public:
-	Entity(b2World* world, b2BodyDef* bodyDef, b2FixtureDef* fixtureDef);
+	Entity(b2World* world);
+
+	void createBody(b2BodyDef* bodyDef);
+	void addFixture(b2FixtureDef* fixtureDef);
 
 	void setTexture(const sf::Texture* tex);
 	void setShape(std::vector<sf::Vector2f> verts);
@@ -16,8 +19,9 @@ public:
 
 	b2Body* body;
 private:
-
 	const sf::Vector2f scale = sf::Vector2f(4, 4);
+
+	b2World* world;
 
 	sf::VertexArray vertices;
 	const sf::Texture* texture;

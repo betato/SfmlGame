@@ -159,6 +159,8 @@
     <ClCompile Include="resmgr\TextureManager.cpp" />
     <ClCompile Include="states\GameState.cpp" />
     <ClCompile Include="states\RunningState.cpp" />
+    <ClCompile Include="entity\DynamicOctagon.cpp" />
+    <ClCompile Include="entity\StaticOctagon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -172,6 +174,8 @@
     <ClInclude Include="resmgr\TextureManager.h" />
     <ClInclude Include="states\GameState.h" />
     <ClInclude Include="states\RunningState.h" />
+    <ClInclude Include="entity\DynamicOctagon.h" />
+    <ClInclude Include="entity\StaticOctagon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

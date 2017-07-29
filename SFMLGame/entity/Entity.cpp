@@ -4,11 +4,20 @@
 
 static const float radToDeg = 180.0f / 3.141592f;
 
-Entity::Entity(b2World* world, b2BodyDef* bodyDef, b2FixtureDef* fixtureDef)
+Entity::Entity(b2World* world)
+{
+	Entity::world = world;
+	vertices.setPrimitiveType(sf::Triangles);
+}
+
+void Entity::createBody(b2BodyDef * bodyDef)
 {
 	body = world->CreateBody(bodyDef);
+}
+
+void Entity::addFixture(b2FixtureDef * fixtureDef)
+{
 	body->CreateFixture(fixtureDef);
-	vertices.setPrimitiveType(sf::Triangles);
 }
 
 void Entity::setTexture(const sf::Texture* tex)
