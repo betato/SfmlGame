@@ -1,12 +1,9 @@
 #include "RunningState.h"
 
 #include <vector>
-#include <iostream>
 
 #include "..\Display.h"
 #include "..\FileLoader.h"
-
-using namespace std;
 
 namespace State
 {
@@ -14,14 +11,10 @@ namespace State
 	{
 		world = new b2World(b2Vec2(0.0f, -10.0f));
 
-		std::vector<std::string> fileText;
-		FileIO::readText(fileText, "res/oct.txt");
-		
-		// Test print file
-		vector<string>::iterator it;
-		for (it = fileText.begin(); it < fileText.end(); it++) {
-			cout << *it << endl;
-		}
+		std::vector<sf::Vector2f> verticies;
+		std::vector<sf::Vector2f> texCoords;
+
+		FileIO::readEntity(verticies, texCoords, "res/oct.txt");
 
 		// Ground box
 		b2BodyDef groundBodyDef;
@@ -51,7 +44,12 @@ namespace State
 		dynamicBody = new Entity(world, &bodyDef, &fixtureDef);
 
 		dynamicBody->setTexture(&ResourceManager::get().getTexture(TextureName::Test));
+		dynamicBody->setShape(verticies);
+		dynamicBody->setTextureCoords(texCoords);
+
 		groundBody->setTexture(&ResourceManager::get().getTexture(TextureName::Test));
+		groundBody->setShape(verticies);
+		groundBody->setTextureCoords(texCoords);
 	}
 
 	void Running::input(const sf::Event& events)
