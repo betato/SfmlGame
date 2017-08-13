@@ -24,5 +24,14 @@ namespace State
 
 		Entity* groundBody;
 		Entity* dynamicBody;
+
+		sf::VertexArray entityOutline;
+
+		sf::VertexArray grid;
+		sf::CircleShape point;
+
+		bool intersecting(sf::Vector2f line1p1, sf::Vector2f line1p2, sf::Vector2f line2p1, sf::Vector2f line2p2);
+		void addPoint(sf::Vector2f point);
+
 	};
 }
