@@ -130,6 +130,7 @@ namespace State
 	{
 		sf::VertexArray triangles;
 		triangles.setPrimitiveType(sf::PrimitiveType::Triangles);
+		std::vector<int> reflex;
 
 		// Already a triangle, return existing points
 		if (shape.size() <= 3)
@@ -141,7 +142,26 @@ namespace State
 			return triangles;
 		}
 
-		std::vector<int> reflex;
+		// Determine polygon point direction
+		sf::Vector2f left = shape[0];
+		int point = 0;
+
+		// Get top left triangle as orientation base
+		for (int i = 0; i < shape.size(); i++)
+		{
+			if (shape[i].x < left.x || (shape[i].x == left.x && shape[i].y < left.y))
+			{
+				point = i;
+				left = shape[i];
+			}
+		}
+
+		// Get triangle point direction
+		bool orientation = getOrient(
+			shape[(point > 0) ? point - 1 : shape.size() - 1],
+			shape[point],
+			shape[(point < shape.size() - 1) ? point + 1 : 0]
+		);
 
 		// Triangulate
 		while (shape.size() >= 3)
@@ -164,7 +184,7 @@ namespace State
 				int next = (index < shape.size() - 1) ? index + 1 : 0; // Next point, if unavailible, use first one from loop
 
 				// Find relative orientation 
-				if (getOrient(shape[prev], i, shape[next]))
+				if (getOrient(shape[prev], i, shape[next]) != orientation)
 				{
 					reflex.emplace_back(index);
 					continue;
