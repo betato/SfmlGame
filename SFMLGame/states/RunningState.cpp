@@ -52,6 +52,19 @@ namespace State
 			}
 
 			triVerts = triangulate(outline);
+			int r;
+			int g;
+			int b;
+			for (int i = 0; i < triVerts.getVertexCount(); i++)
+			{
+				if (i % 3 == 0)
+				{
+					r = (rand() % static_cast<int>(255));
+					g = (rand() % static_cast<int>(255));
+					b = (rand() % static_cast<int>(255));
+				}
+				triVerts[i].color = sf::Color(r, g, b, 255);
+			}
 			outline.clear();
 		}
 		if (events.key.code == sf::Keyboard::C)
