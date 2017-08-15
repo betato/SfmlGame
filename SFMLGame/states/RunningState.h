@@ -30,8 +30,18 @@ namespace State
 		sf::VertexArray grid;
 		sf::CircleShape point;
 
+		std::vector<sf::Vector2f> outline;
+
+		sf::VertexArray triVerts;
+
 		bool intersecting(sf::Vector2f line1p1, sf::Vector2f line1p2, sf::Vector2f line2p1, sf::Vector2f line2p2);
 		void addPoint(sf::Vector2f point);
+
+		sf::VertexArray triangulate(std::vector<sf::Vector2f>& shape);
+
+		bool getOrient(sf::Vector2f& a, sf::Vector2f& b, sf::Vector2f& c);
+		bool inTriangle(const sf::Vector2f& pt, const sf::Vector2f& v1, const sf::Vector2f& v2, const sf::Vector2f& v3);
+		float sign(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f p3);
 
 	};
 }
