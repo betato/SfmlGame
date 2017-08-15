@@ -130,6 +130,17 @@ namespace State
 	{
 		sf::VertexArray triangles;
 		triangles.setPrimitiveType(sf::PrimitiveType::Triangles);
+
+		// Already a triangle, return existing points
+		if (shape.size() <= 3)
+		{
+			for each (sf::Vector2f v in shape)
+			{
+				triangles.append(v);
+			}
+			return triangles;
+		}
+
 		std::vector<int> reflex;
 
 		// Triangulate
