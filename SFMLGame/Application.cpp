@@ -5,6 +5,7 @@
 #include "Display.h"
 #include "resmgr\ResourceManager.h"
 #include "states\RunningState.h"
+#include "states\ModelDesignState.h"
 
 Application::Application(int frameCap, int updateCap)
 {
@@ -12,6 +13,7 @@ Application::Application(int frameCap, int updateCap)
 	updateRate = updateCap;
 
 	pushState(std::make_unique<State::Running>(*this));
+	pushState(std::make_unique<State::ModelDesign>(*this));
 }
 
 void Application::runLoop()
