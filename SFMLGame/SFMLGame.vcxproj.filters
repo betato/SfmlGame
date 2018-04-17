@@ -57,6 +57,9 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="designer\Designer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="designer\Triangulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -102,6 +105,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="designer\Designer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="designer\Triangulator.h">
