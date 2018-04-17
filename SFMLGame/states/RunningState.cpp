@@ -45,6 +45,7 @@ namespace State
 		}
 
 		if (events.key.code == sf::Keyboard::Space)
+		switch (events.type)
 		{
 			for (int i = 0; i < entityOutline.getVertexCount(); i++)
 			{
@@ -72,6 +73,14 @@ namespace State
 			triVerts.clear();
 			entityOutline.clear();
 			outline.clear();
+		case sf::Event::MouseButtonPressed:
+			mousePressed(events);
+			break;
+		case sf::Event::KeyPressed:
+			keyPressed(events);
+			break;
+		case sf::Event::MouseMoved:
+			mouseMoved(events);
 		}
 	}
 
@@ -93,6 +102,7 @@ namespace State
 	}
 
 	void Running::addPoint(sf::Vector2f point)
+	void Running::mousePressed(const sf::Event & events)
 	{
 		int length = entityOutline.getVertexCount() - 1;
 		//for (int i = 0; i < length; i++)
@@ -107,6 +117,7 @@ namespace State
 	}
 
 	sf::VertexArray Running::triangulate(std::vector<sf::Vector2f>& shape)
+	void Running::mouseMoved(const sf::Event & events)
 	{
 		sf::VertexArray triangles;
 		triangles.setPrimitiveType(sf::PrimitiveType::Triangles);
@@ -248,6 +259,7 @@ namespace State
 	}
 
 	float Running::sign(sf::Vector2f a, sf::Vector2f b, sf::Vector2f c)
+	void Running::keyPressed(const sf::Event & events)
 	{
 		return (a.x - c.x) * (b.y - c.y) - (b.x - c.x) * (a.y - c.y);
 	}

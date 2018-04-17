@@ -30,6 +30,9 @@ namespace State
 		Grid grid = Grid(1280, 720, 10, 10);;
 		Designer designer;
 
+		bool mouseHeld = false;
+		sf::Vector2f mouseStart;
+		sf::Vector2f mouseEnd;
 
 		std::vector<sf::Vector2f> outline;
 
@@ -44,5 +47,8 @@ namespace State
 		bool inTriangle(const sf::Vector2f& pt, const sf::Vector2f& v1, const sf::Vector2f& v2, const sf::Vector2f& v3);
 		float sign(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f p3);
 
+		void mousePressed(const sf::Event& events);
+		void mouseMoved(const sf::Event& events);
+		void keyPressed(const sf::Event& events);
 	};
 }

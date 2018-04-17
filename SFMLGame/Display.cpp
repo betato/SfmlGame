@@ -9,6 +9,7 @@ namespace Display
 	void init(int framerate, int width, int height, std::string title)
 	{
 		window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title);
+		window->setKeyRepeatEnabled(false);
 		window->setFramerateLimit(framerate);
 	}
 
