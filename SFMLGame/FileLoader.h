@@ -9,7 +9,10 @@ using namespace std;
 
 namespace FileIO
 {
-	bool readText(vector<string>& file, string path);
+	bool readText(vector<string>& text, string path);
+	void writeText(vector<string> text, string path);
+
 	bool readEntity(sf::VertexArray& vertices, sf::Vector2u textureSize, string path);
 	bool readPhysics(b2PolygonShape& shape, string path);
+	void writePhysics(sf::VertexArray shape, string path);
 }

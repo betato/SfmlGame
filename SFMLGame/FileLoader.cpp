@@ -6,20 +6,30 @@
 
 namespace FileIO
 {
-	bool readText(vector<string>& file, string path)
+	bool readText(vector<string>& text, string path)
 	{
 		string line;
-		ifstream fileStream(path);
-		if (fileStream.is_open())
+		ifstream inputStream(path);
+		if (inputStream.is_open())
 		{
-			while (getline(fileStream, line))
+			while (getline(inputStream, line))
 			{
-				file.push_back(line);
+				text.push_back(line);
 			}
-			fileStream.close();
+			inputStream.close();
 			return true;
 		}
 		return false;
+	}
+
+	void writeText(vector<string> text, string path)
+	{
+		ofstream outputStream(path);
+		for (auto it = text.begin(); it != text.end(); it++)
+		{
+			outputStream << *it << std::endl; // File ends with newline
+		}
+		outputStream.close();
 	}
 	
 	bool readEntity(sf::VertexArray& vertices, sf::Vector2u textureSize, string path)
@@ -85,5 +95,17 @@ namespace FileIO
 		// Set vertices to the vector array
 		shape.Set(&vertices[0], vertices.size());
 		return true;
+	}
+
+	void writePhysics(sf::VertexArray shape, string path)
+	{
+		std::vector<std::string> fileText;
+		int verticies = shape.getVertexCount();
+		for (unsigned int i = 0; i < verticies; i++)
+		{
+			sf::Vector2f vertex = shape[i].position;
+			fileText.push_back(std::to_string(vertex.x) + ',' + std::to_string(vertex.y));
+		}
+		writeText(fileText, path);
 	}
 }

@@ -1,6 +1,7 @@
 #include "ModelDesignState.h"
 
 #include "..\Display.h"
+#include "..\FileLoader.h"
 
 namespace State
 {
@@ -148,6 +149,12 @@ namespace State
 		if (events.key.code == sf::Keyboard::Delete)
 		{
 			designer.removePoints();
+		}
+
+		if (events.key.code == sf::Keyboard::W)
+		{
+			// Write to file
+			FileIO::writePhysics(triangulation, "res/testfile.txt");
 		}
 	}
 
