@@ -162,6 +162,7 @@
     <ClCompile Include="states\RunningState.cpp" />
     <ClCompile Include="entity\DynamicOctagon.cpp" />
     <ClCompile Include="entity\StaticOctagon.cpp" />
+    <ClCompile Include="designer\Triangulator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="states\RunningState.h" />
     <ClInclude Include="entity\DynamicOctagon.h" />
     <ClInclude Include="entity\StaticOctagon.h" />
+    <ClInclude Include="designer\Triangulator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
