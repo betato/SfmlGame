@@ -82,26 +82,6 @@ namespace State
 
 	void Running::draw()
 	{
-		Display::draw(grid);
-
-		Display::draw(triVerts);
-
-		for (int i = 0; i < entityOutline.getVertexCount(); i++)
-		{
-			point.setPosition(entityOutline[i].position - sf::Vector2f(point.getRadius(), point.getRadius()));
-			Display::draw(point);
-		}
-		
-		Display::draw(entityOutline);
-		if (entityOutline.getVertexCount() > 1)
-		{
-			sf::VertexArray endLine;
-			endLine.setPrimitiveType(sf::Lines);
-			endLine.append(entityOutline[entityOutline.getVertexCount() - 1]);
-			endLine.append(entityOutline[0]);
-			Display::draw(endLine);
-		}
-
 		Display::draw(*groundBody);
 		Display::draw(*dynamicBody);
 	}

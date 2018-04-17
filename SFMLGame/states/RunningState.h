@@ -4,6 +4,7 @@
 
 #include "..\entity\Entity.h"
 #include "GameState.h"
+#include "..\Grid.h"
 
 namespace State
 {
@@ -26,9 +27,9 @@ namespace State
 		Entity* dynamicBody;
 
 		sf::VertexArray entityOutline;
+		Grid grid = Grid(1280, 720, 10, 10);;
+		Designer designer;
 
-		sf::VertexArray grid;
-		sf::CircleShape point;
 
 		std::vector<sf::Vector2f> outline;
 
