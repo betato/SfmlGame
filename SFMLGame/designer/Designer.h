@@ -9,6 +9,7 @@ class Designer
 public:
 	void addPoint(sf::Vector2f point);
 	void selectPoint(sf::Vector2f point);
+	void deselectAll();
 	void selectBox(sf::Vector2f p1, sf::Vector2f p2);
 	void removePoints();
 	void movePoints(sf::Vector2f delta);

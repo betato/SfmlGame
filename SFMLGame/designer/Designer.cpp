@@ -2,7 +2,51 @@
 
 sf::VertexArray Designer::calcTriangles()
 {
-	return triangulator.triangulate(outline);
+	int length = outline.size() - 1;
+	deselectAll();
+	bool linesIntersecting = false;
+
+	// Check lines intersecting line between first and last points
+	for (int i = 0; i < length; i++)
+	{
+		if (intersecting(outline[length], outline[0], outline[i], outline[i + 1]))
+		{
+			// Select intersecting lines
+			selected[length] = true;
+			selected[0] = true;
+			selected[i] = true;
+			selected[i + 1] = true;
+			linesIntersecting = true;
+		}
+	}
+
+	// Check all other lines
+	for (int i = 0; i < length; i++)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			if (intersecting(outline[i], outline[i + 1], outline[j], outline[j + 1]))
+			{
+				// Select intersecting lines
+				selected[i] = true;
+				selected[i + 1] = true;
+				selected[j] = true;
+				selected[j + 1] = true;
+				linesIntersecting = true;
+			}
+		}
+	}
+
+	// This does not currently select the 
+
+	if (linesIntersecting)
+	{
+		return sf::VertexArray();
+	}
+	else
+	{
+		return triangulator.triangulate(outline);
+	}
 }
 
 void Designer::clear()
@@ -34,15 +78,6 @@ sf::VertexArray Designer::getOutline()
 
 void Designer::addPoint(sf::Vector2f point)
 {
-	int length = outline.size() - 1;
-	for (int i = 0; i < length; i++)
-	{
-		if (intersecting(outline[i], outline[i + 1], outline[length], point))
-		{
-			// Lines intersect, don't add
-			return;
-		}
-	}
 	outline.push_back(point);
 	selected.push_back(false);
 }
@@ -57,6 +92,14 @@ void Designer::selectPoint(sf::Vector2f point)
 			selected[i] = !selected[i];
 			return;
 		}
+	}
+}
+
+void Designer::deselectAll()
+{
+	for (auto it = selected.begin(); it < selected.end(); it++)
+	{
+		*it = false;
 	}
 }
 
@@ -110,8 +153,8 @@ void Designer::movePoints(sf::Vector2f delta)
 
 bool Designer::intersecting(sf::Vector2f line1p1, sf::Vector2f line1p2, sf::Vector2f line2p1, sf::Vector2f line2p2)
 {
-	return (((line1p1.x - line2p1.x)*(line2p2.y - line2p1.y) - (line1p1.y - line2p1.y)*(line2p2.x - line2p1.x)) * 
+	return (((line1p1.x - line2p1.x)*(line2p2.y - line2p1.y) - (line1p1.y - line2p1.y)*(line2p2.x - line2p1.x)) *
 		((line1p2.x - line2p1.x)*(line2p2.y - line2p1.y) - (line1p2.y - line2p1.y)*(line2p2.x - line2p1.x)) < 0) &&
-		(((line2p1.x - line1p1.x)*(line1p2.y - line1p1.y) - (line2p1.y - line1p1.y)*(line1p2.x - line1p1.x)) * 
+		(((line2p1.x - line1p1.x)*(line1p2.y - line1p1.y) - (line2p1.y - line1p1.y)*(line1p2.x - line1p1.x)) *
 		((line2p2.x - line1p1.x)*(line1p2.y - line1p1.y) - (line2p2.y - line1p1.y)*(line1p2.x - line1p1.x)) < 0);
 }
