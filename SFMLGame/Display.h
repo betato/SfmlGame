@@ -14,4 +14,8 @@ namespace Display
 
 	void checkEvents(State::GameState& gameState);
 	bool isOpen();
+
+	void setView(const sf::View& view);
+	sf::Vector2f getMappedMouse();
+	sf::Vector2u getSize();
 }

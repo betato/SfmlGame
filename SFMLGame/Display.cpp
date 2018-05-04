@@ -47,4 +47,21 @@ namespace Display
 	{
 		return window->isOpen();
 	}
+
+	void setView(const sf::View & view)
+	{
+		window->setView(view);
+	}
+
+	sf::Vector2f getMappedMouse()
+	{
+		// Get relative position and map to world coords
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(*window);
+		return window->mapPixelToCoords(pixelPos);
+	}
+
+	sf::Vector2u getSize()
+	{
+		return window->getSize();
+	}
 }
