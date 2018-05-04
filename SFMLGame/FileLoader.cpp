@@ -97,6 +97,24 @@ namespace FileIO
 		return true;
 	}
 
+	void writeEntity(sf::VertexArray vertices, sf::Vector2u textureSize, string path)
+	{
+		std::vector<std::string> fileText;
+		// Verticies
+		for (int i = 0; i < vertices.getVertexCount(); i++)
+		{
+			sf::Vector2f pos = vertices[i].position;
+			fileText.push_back("v" + std::to_string(pos.x) + "," + std::to_string(pos.y));
+		}
+		// Texture
+		for (int i = 0; i < vertices.getVertexCount(); i++)
+		{
+			sf::Vector2f tex = vertices[i].texCoords;
+			fileText.push_back("t" + std::to_string(tex.x / textureSize.x) + "," + std::to_string(tex.y / textureSize.y));
+		}
+		writeText(fileText, path);
+	}
+
 	void writePhysics(sf::VertexArray shape, string path)
 	{
 		std::vector<std::string> fileText;

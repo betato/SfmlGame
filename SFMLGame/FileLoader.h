@@ -14,5 +14,6 @@ namespace FileIO
 
 	bool readEntity(sf::VertexArray& vertices, sf::Vector2u textureSize, string path);
 	bool readPhysics(b2PolygonShape& shape, string path);
+	void writeEntity(sf::VertexArray vertices, sf::Vector2u textureSize, string path);
 	void writePhysics(sf::VertexArray shape, string path);
 }
