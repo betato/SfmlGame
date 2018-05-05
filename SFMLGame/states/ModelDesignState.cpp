@@ -7,7 +7,11 @@ namespace State
 {
 	ModelDesign::ModelDesign(Application & application) : GameState(application)
 	{
-
+		sf::Vector2u windowSize = Display::getSize();
+		designerView = sf::View(sf::FloatRect(0, 0, windowSize.x, windowSize.y));
+		designerView.setViewport(sf::FloatRect(0, 0, 1, 1));
+		//designerView.zoom(0.125);
+		Display::setView(designerView);
 	}
 
 	void ModelDesign::input(const sf::Event& events)
@@ -22,6 +26,10 @@ namespace State
 			break;
 		case sf::Event::MouseMoved:
 			mouseMoved(events);
+			break; 
+		case sf::Event::MouseWheelScrolled:
+				mouseScrolled(events);
+				break;
 		case sf::Event::KeyPressed:
 			keyPressed(events);
 			break;
@@ -66,8 +74,9 @@ namespace State
 
 	void ModelDesign::mousePressed(const sf::Event & events)
 	{
-		int roundX = ((events.mouseButton.x + 5) / 10) * 10;
-		int roundY = ((events.mouseButton.y + 5) / 10) * 10;
+		sf::Vector2f mouse = Display::getMappedMouse();
+		int roundX = (((int)mouse.x + 5) / 10) * 10;
+		int roundY = (((int)mouse.y + 5) / 10) * 10;
 		if (events.mouseButton.button == sf::Mouse::Left)
 		{
 			// Add point
@@ -105,8 +114,9 @@ namespace State
 
 	void ModelDesign::mouseMoved(const sf::Event & events)
 	{
-		int roundX = ((events.mouseMove.x + 5) / 10) * 10;
-		int roundY = ((events.mouseMove.y + 5) / 10) * 10;
+		sf::Vector2f mouse = Display::getMappedMouse();
+		int roundX = ((mouse.x + 5) / 10) * 10;
+		int roundY = ((mouse.y + 5) / 10) * 10;
 		if (boxSelecting)
 		{
 			mouseEnd = sf::Vector2f(roundX, roundY);
@@ -118,6 +128,27 @@ namespace State
 			designer.movePoints(sf::Vector2f(roundX, roundY) - moveStart);
 			moveStart = sf::Vector2f(roundX, roundY);
 		}
+	}
+
+	void ModelDesign::mouseScrolled(const sf::Event & events)
+	{
+		// Zoom
+		Display::setView(designerView);
+		sf::Vector2f beforeCoords = Display::getMappedMouse();
+		float scroll = -events.mouseWheelScroll.delta;
+		if (scroll > 0)
+		{
+			// Zoom out
+			designerView.zoom((float)(std::fmin(scroll, 6) / 20) + 1);
+		}
+		else
+		{
+			// Zoom in
+			designerView.zoom((float)(std::fmax(scroll, -6) / 20) + 1);
+		}
+		Display::setView(designerView);
+		sf::Vector2f afterCoords = Display::getMappedMouse();
+		designerView.move(beforeCoords - afterCoords);
 	}
 
 	void ModelDesign::keyPressed(const sf::Event & events)
@@ -155,6 +186,15 @@ namespace State
 		{
 			// Write to file
 			FileIO::writePhysics(triangulation, "res/testfile.txt");
+		}
+
+		if (events.key.code == sf::Keyboard::Z)
+		{
+			// Reset zoom
+			sf::Vector2u windowSize = Display::getSize();
+			designerView.reset(sf::FloatRect(0, 0, windowSize.x, windowSize.y));
+			designerView.zoom(1);
+			Display::setView(designerView);
 		}
 	}
 

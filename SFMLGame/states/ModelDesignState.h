@@ -16,6 +16,8 @@ namespace State
 		void draw() override;
 	private:
 
+		sf::View designerView;
+
 		Grid grid = Grid(1280, 720, 10, 10);
 		Designer designer;
 
@@ -31,6 +33,7 @@ namespace State
 		void mousePressed(const sf::Event& events);
 		void mouseReleased(const sf::Event& events);
 		void mouseMoved(const sf::Event& events);
+		void mouseScrolled(const sf::Event& events);
 
 		void keyPressed(const sf::Event& events);
 		void keyReleased(const sf::Event& events);
